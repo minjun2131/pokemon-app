@@ -40,9 +40,6 @@ const PokemonDetail = ({ dashPokemon, setDashPokemon }) => {
   const backSpace = () => {
     navigation(-1);
   };
-  // 굳이 확인할 필요없이 로컬스토리지의 값을 확인해서 버튼 온오프 해주기
-
-  // 지금 페이지 들어왔을 때 이 값이 있는지 없는지를 먼저 확인해야 함
 
   const pokeData = JSON.parse(localStorage.getItem("ChoosePokemon"));
   const chooseToggle =
@@ -67,9 +64,6 @@ const PokemonDetail = ({ dashPokemon, setDashPokemon }) => {
   const deleteDash = (e) => {
     e.preventDefault();
 
-    // eslint-disable-next-line react/prop-types
-    // 이게 id가 지금 number와 string인지 서로 타입이 조금 다름 좌항 id가 타입이 string임..?
-    // 물어봐야 할듯
     const deleteDetail = dashPokemon.filter((pokelist) => pokelist.id != id);
     localStorage.setItem("ChoosePokemon", JSON.stringify(deleteDetail));
     setDashPokemon(deleteDetail);
