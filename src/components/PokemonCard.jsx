@@ -1,8 +1,8 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { PokemonContext } from "../context/PokemonContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addPokemon, removePokemon } from "../redux/slice/PokemonSlice";
 
 const MySwal = withReactContent(Swal);
 
@@ -33,13 +33,17 @@ const Button = styled.button`
 `;
 
 const PokemonCard = ({ pokemon, toggleDefault }) => {
-  const { dashPokemon, setDashPokemon } = useContext(PokemonContext);
-  const { id, img_url, korean_name, description, types } = pokemon;
+  // const dispatch = useDispatch();
+  // console.log(dispatch);
+  // const pokemonDex = useSelector((state) => state.pokemonDex.pokemonList);
 
+  const { id, img_url, korean_name, description, types } = pokemon;
+  let pokemonDex = [];
   const addHandler = (e) => {
     e.preventDefault();
     const newData = { img_url, korean_name, id, description, types };
-    if (dashPokemon.length > 5) {
+
+    if (pokemonDex.length > 5) {
       MySwal.fire({
         icon: "warning",
         title: "초과",
@@ -48,8 +52,7 @@ const PokemonCard = ({ pokemon, toggleDefault }) => {
       });
       return;
     }
-    const includePokemon = dashPokemon.some((pokemon) => pokemon.id === id);
-    console.log(dashPokemon);
+    const includePokemon = pokemonDex.some((pokemon) => pokemon.id === id);
 
     if (includePokemon) {
       MySwal.fire({
@@ -60,20 +63,12 @@ const PokemonCard = ({ pokemon, toggleDefault }) => {
       });
       return;
     }
-    console.log(dashPokemon);
-    localStorage.setItem(
-      "ChoosePokemon",
-      JSON.stringify([...dashPokemon, newData])
-    );
-    setDashPokemon([...dashPokemon, newData]);
+    // dispatch(addPokemon(newData));
   };
-
   const deleteHandler = (e) => {
     e.preventDefault();
 
-    const deletePokemon = dashPokemon.filter((pokelist) => pokelist.id !== id);
-    localStorage.setItem("ChoosePokemon", JSON.stringify(deletePokemon));
-    setDashPokemon(deletePokemon);
+    // dispatch(removePokemon({ id }));
   };
 
   return (
@@ -91,5 +86,4 @@ const PokemonCard = ({ pokemon, toggleDefault }) => {
     </>
   );
 };
-
 export default PokemonCard;

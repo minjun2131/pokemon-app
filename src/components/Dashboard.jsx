@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { Link } from "react-router-dom";
-import { PokemonContext } from "../context/PokemonContext";
 import { useContext } from "react";
 
 const DashBoardWrap = styled.div`
@@ -80,31 +79,29 @@ const AddButton = styled.div`
 
 const DEFAULT_POKEMON_BALL = 6;
 /** Dashboard */
-const Dashboard = () => {
-  const { dashPokemon, setDashPokemon } = useContext(PokemonContext);
-  console.log(dashPokemon);
-  const empty_balls = DEFAULT_POKEMON_BALL - dashPokemon.length;
-  return (
-    <DashBoardWrap>
-      <DashTitle>My Pokemon</DashTitle>
-      <DashBoardList>
-        {dashPokemon.map((pokemon) => (
-          <PokemonInfo key={pokemon.id}>
-            <Link to={`/pokeDexNo/${pokemon.id}`}>
-              <PokemonCard pokemon={pokemon} />
-            </Link>
-          </PokemonInfo>
-        ))}
-        {Array(empty_balls)
-          .fill(null)
-          .map((_, index) => (
-            <DashInfo key={index}>
-              <DashBoardExample src="myBall.png" alt="포켓몬스터_볼_이미지" />
-            </DashInfo>
-          ))}
-      </DashBoardList>
-    </DashBoardWrap>
-  );
-};
+// const Dashboard = () => {
+//   const empty_balls = DEFAULT_POKEMON_BALL - dashPokemon.length;
+//   return (
+//     <DashBoardWrap>
+//       <DashTitle>My Pokemon</DashTitle>
+//       <DashBoardList>
+//         {dashPokemon.map((pokemon) => (
+//           <PokemonInfo key={pokemon.id}>
+//             <Link to={`/pokeDexNo/${pokemon.id}`}>
+//               <PokemonCard pokemon={pokemon} />
+//             </Link>
+//           </PokemonInfo>
+//         ))}
+//         {Array(empty_balls)
+//           .fill(null)
+//           .map((_, index) => (
+//             <DashInfo key={index}>
+//               <DashBoardExample src="myBall.png" alt="포켓몬스터_볼_이미지" />
+//             </DashInfo>
+//           ))}
+//       </DashBoardList>
+//     </DashBoardWrap>
+//   );
+// };
 
-export default Dashboard;
+// export default Dashboard;
