@@ -4,6 +4,8 @@ import MOCK_DATA from "../mok-data/MokData";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useDispatch, useSelector } from "react-redux";
+import { addPokemon, removePokemon } from "../redux/slice/PokemonSlice";
 
 const MySwal = withReactContent(Swal);
 
@@ -30,7 +32,8 @@ const DetailButton = styled.button`
 `;
 
 const PokemonDetail = () => {
-  const { dashPokemon, setDashPokemon } = useContext(PokemonContext);
+  const dispatch = useDispatch();
+  const pokemonDex = useSelector((state) => state.pokemonDex.pokemonList);
   const { id } = useParams();
   const [pokemonData, setPokemonData] = useState(null);
   const navigation = useNavigate();
@@ -42,11 +45,10 @@ const PokemonDetail = () => {
     navigation(-1);
   };
 
-  const pokeData = JSON.parse(localStorage.getItem("ChoosePokemon"));
   const chooseToggle =
-    pokeData && pokeData.some((check) => check.id === Number(id));
+    pokemonDex && pokemonDex.some((check) => check.id === Number(id));
   const handleDash = () => {
-    if (pokeData.length > 5) {
+    if (pokemonDex.length > 5) {
       MySwal.fire({
         icon: "warning",
         title: "중복",
@@ -55,19 +57,13 @@ const PokemonDetail = () => {
       });
       return;
     }
-    localStorage.setItem(
-      "ChoosePokemon",
-      JSON.stringify([...dashPokemon, pokemonData])
-    );
-    setDashPokemon([...dashPokemon, pokemonData]);
+    dispatch(addPokemon(pokemonData));
   };
 
   const deleteDash = (e) => {
     e.preventDefault();
 
-    const deleteDetail = dashPokemon.filter((pokelist) => pokelist.id != id);
-    localStorage.setItem("ChoosePokemon", JSON.stringify(deleteDetail));
-    setDashPokemon(deleteDetail);
+    dispatch(removePokemon(pokemonData));
   };
 
   return (

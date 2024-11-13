@@ -33,12 +33,9 @@ const Button = styled.button`
 `;
 
 const PokemonCard = ({ pokemon, toggleDefault }) => {
-  // const dispatch = useDispatch();
-  // console.log(dispatch);
-  // const pokemonDex = useSelector((state) => state.pokemonDex.pokemonList);
-
+  const dispatch = useDispatch();
+  const pokemonDex = useSelector((state) => state.pokemonDex.pokemonList);
   const { id, img_url, korean_name, description, types } = pokemon;
-  let pokemonDex = [];
   const addHandler = (e) => {
     e.preventDefault();
     const newData = { img_url, korean_name, id, description, types };
@@ -63,12 +60,12 @@ const PokemonCard = ({ pokemon, toggleDefault }) => {
       });
       return;
     }
-    // dispatch(addPokemon(newData));
+    dispatch(addPokemon(newData));
   };
   const deleteHandler = (e) => {
     e.preventDefault();
 
-    // dispatch(removePokemon({ id }));
+    dispatch(removePokemon({ id }));
   };
 
   return (

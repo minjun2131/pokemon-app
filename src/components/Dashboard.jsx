@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const DashBoardWrap = styled.div`
   display: flex;
@@ -79,29 +79,30 @@ const AddButton = styled.div`
 
 const DEFAULT_POKEMON_BALL = 6;
 /** Dashboard */
-// const Dashboard = () => {
-//   const empty_balls = DEFAULT_POKEMON_BALL - dashPokemon.length;
-//   return (
-//     <DashBoardWrap>
-//       <DashTitle>My Pokemon</DashTitle>
-//       <DashBoardList>
-//         {dashPokemon.map((pokemon) => (
-//           <PokemonInfo key={pokemon.id}>
-//             <Link to={`/pokeDexNo/${pokemon.id}`}>
-//               <PokemonCard pokemon={pokemon} />
-//             </Link>
-//           </PokemonInfo>
-//         ))}
-//         {Array(empty_balls)
-//           .fill(null)
-//           .map((_, index) => (
-//             <DashInfo key={index}>
-//               <DashBoardExample src="myBall.png" alt="포켓몬스터_볼_이미지" />
-//             </DashInfo>
-//           ))}
-//       </DashBoardList>
-//     </DashBoardWrap>
-//   );
-// };
+const Dashboard = () => {
+  const pokemonDex = useSelector((state) => state.pokemonDex.pokemonList);
+  const empty_balls = DEFAULT_POKEMON_BALL - pokemonDex.length;
+  return (
+    <DashBoardWrap>
+      <DashTitle>My Pokemon</DashTitle>
+      <DashBoardList>
+        {pokemonDex.map((pokemon) => (
+          <PokemonInfo key={pokemon.id}>
+            <Link to={`/pokeDexNo/${pokemon.id}`}>
+              <PokemonCard pokemon={pokemon} />
+            </Link>
+          </PokemonInfo>
+        ))}
+        {Array(empty_balls)
+          .fill(null)
+          .map((_, index) => (
+            <DashInfo key={index}>
+              <DashBoardExample src="myBall.png" alt="포켓몬스터_볼_이미지" />
+            </DashInfo>
+          ))}
+      </DashBoardList>
+    </DashBoardWrap>
+  );
+};
 
-// export default Dashboard;
+export default Dashboard;

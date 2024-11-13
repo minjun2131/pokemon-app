@@ -14,7 +14,9 @@ const persistedReducer = persistReducer(
 );
 
 export const pokemonStore = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    pokemonDex: persistedReducer, // add persisted reducer as a key-value
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

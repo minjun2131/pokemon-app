@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  // pokemonList: JSON.parse(localStorage.getItem("pokemonList")) || [],
   pokemonList: [],
 };
 

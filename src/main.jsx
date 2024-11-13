@@ -7,7 +7,7 @@ import { pokemonStore } from "./redux/config/store.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Provider pokemonStore={pokemonStore}>
+    <Provider store={pokemonStore}>
       <App />
     </Provider>
   </StrictMode>
