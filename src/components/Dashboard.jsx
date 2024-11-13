@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { Link } from "react-router-dom";
+import { PokemonContext } from "../context/PokemonContext";
+import { useContext } from "react";
 
 const DashBoardWrap = styled.div`
   display: flex;
@@ -78,7 +80,9 @@ const AddButton = styled.div`
 
 const DEFAULT_POKEMON_BALL = 6;
 /** Dashboard */
-const Dashboard = ({ dashPokemon, setDashPokemon }) => {
+const Dashboard = () => {
+  const { dashPokemon, setDashPokemon } = useContext(PokemonContext);
+  console.log(dashPokemon);
   const empty_balls = DEFAULT_POKEMON_BALL - dashPokemon.length;
   return (
     <DashBoardWrap>
@@ -87,11 +91,7 @@ const Dashboard = ({ dashPokemon, setDashPokemon }) => {
         {dashPokemon.map((pokemon) => (
           <PokemonInfo key={pokemon.id}>
             <Link to={`/pokeDexNo/${pokemon.id}`}>
-              <PokemonCard
-                pokemon={pokemon}
-                dashPokemon={dashPokemon}
-                setDashPokemon={setDashPokemon}
-              />
+              <PokemonCard pokemon={pokemon} />
             </Link>
           </PokemonInfo>
         ))}

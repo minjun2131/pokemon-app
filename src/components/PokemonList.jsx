@@ -29,7 +29,7 @@ const PokemonInfo = styled.li`
   }
 `;
 
-const PokemonList = ({ dashPokemon, setDashPokemon }) => {
+const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState(MOCK_DATA);
 
   return (
@@ -38,12 +38,7 @@ const PokemonList = ({ dashPokemon, setDashPokemon }) => {
         return (
           <PokemonInfo key={pokemon.id}>
             <Link to={`/pokeDexNo/${pokemon.id}`}>
-              <PokemonCard
-                pokemon={pokemon}
-                dashPokemon={dashPokemon}
-                setDashPokemon={setDashPokemon}
-                toggleDefault={true}
-              />
+              <PokemonCard pokemon={pokemon} toggleDefault={true} />
             </Link>
           </PokemonInfo>
         );

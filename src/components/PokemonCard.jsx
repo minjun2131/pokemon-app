@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { PokemonContext } from "../context/PokemonContext";
 
 const MySwal = withReactContent(Swal);
 
@@ -30,12 +32,8 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PokemonCard = ({
-  pokemon,
-  dashPokemon,
-  setDashPokemon,
-  toggleDefault,
-}) => {
+const PokemonCard = ({ pokemon, toggleDefault }) => {
+  const { dashPokemon, setDashPokemon } = useContext(PokemonContext);
   const { id, img_url, korean_name, description, types } = pokemon;
 
   const addHandler = (e) => {
