@@ -15,7 +15,7 @@ const persistedReducer = persistReducer(
 
 export const pokemonStore = configureStore({
   reducer: {
-    pokemonDex: persistedReducer, // add persisted reducer as a key-value
+    pokemonDex: persistedReducer, 
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -24,3 +24,5 @@ export const pokemonStore = configureStore({
 });
 
 export const pokemonPersistor = persistStore(pokemonStore);
+
+// persist => 자동으로 localStorage에 저장한다 
